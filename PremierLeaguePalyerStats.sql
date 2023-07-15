@@ -11,7 +11,7 @@ from Players
 
 -- Create a new table is called InjuredPlayers
 -- Choose ID's randomly which less than or equal 300 and insert data to InjuredPlayers table
--- Data type of @IsInjured bit(boolean if true 0, if false 0)
+-- Data type of @IsInjured bit(boolean if true 1, false 0)
 
 create table InjuredPlayers
 (
