@@ -9,9 +9,9 @@ select *
 from Players
 
 
--- Create a new table is called InjuredPlayers
--- Choose ID's randomly which less than or equal 300 and insert data to InjuredPlayers table
--- Data type of @IsInjured bit(boolean if true 1, false 0)
+-- Create a new table called InjuredPlayers
+-- Get IDs which less than or equal to 300 and choose IsInjured raws randomly and insert  data to the InjuredPlayers table
+-- Data type of IsInjured is bit(boolean: if true 1, false 0)
 
 create table InjuredPlayers
 (
@@ -31,7 +31,7 @@ select *
 from InjuredPlayers
 
 
--- Create a new table is called PlayersNewData insert data to this table
+-- Create a new table  called PlayersNewData insert data to this table
 
 create table PlayersNewData
 (
@@ -92,10 +92,10 @@ select *
 from Players a 
 left Join InjuredPlayers b on a.[rank] = b.id
 
--- Add new column to Players table
+-- Add a new column to the Player's table
 alter table Players add IsInjured bit
 
--- Update IsInjured column with case statement
+-- Update the IsInjured column with the case statement
 update a 
 set a.IsInjured = case when b.Id is not Null then b.IsInjured else 0 end
 from Players a 
@@ -146,14 +146,14 @@ where DRNK <= @Top
 
 SELECT * FROM udf_TopPlayers(5)
 
--- Join inline table valued function to table Players
+-- Join inline table-valued function to table Players
 
 select *
 from udf_TopPlayers (50) a
 join Players b on a.Player = b.Player
 
 
---Creating procedure and use function in that procedure
+--Creating a procedure and using the function in that procedure
 
 create proc uspTopPlayers @Best int
 as
