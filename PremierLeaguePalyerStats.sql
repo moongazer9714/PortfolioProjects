@@ -163,5 +163,5 @@ begin
 	join Players b on a.Player = b.Player
 end
 
- exec uspTopPlayers 15
+exec uspTopPlayers 15
  
