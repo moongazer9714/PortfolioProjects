@@ -162,11 +162,3 @@ WHERE row_num > 1
 SELECT * FROM cte
 WHERE row_num > 1
 
-
-
------------------------------------------------------------------------------
-
--- Delete unusual columns
-
-SELECT *
-FROM NashvilleHousing
