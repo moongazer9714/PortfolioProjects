@@ -47,7 +47,7 @@ SELECT PropertyAddress
 FROM dbo.NashvilleHousing
 
 SELECT PropertyAddress 
-      ,SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress)-1) as Address
+          ,SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress)-1) as Address
 	  ,SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress)+1, LEN(PropertyAddress)) as Address
 FROM NashvilleHousing
 
@@ -68,7 +68,7 @@ FROM NashvilleHousing
 
 
 SELECT OwnerAddress
-      ,SUBSTRING(OwnerAddress, 1, CHARINDEX(',', OwnerAddress)-1)
+         ,SUBSTRING(OwnerAddress, 1, CHARINDEX(',', OwnerAddress)-1)
 	  --,REVERSE(OwnerAddress)
 	  --,CHARINDEX(',', REVERSE(OwnerAddress))
 	  --,SUBSTRING(REVERSE(OwnerAddress), 1, CHARINDEX(',', REVERSE(OwnerAddress))-2)
@@ -79,8 +79,8 @@ SELECT OwnerAddress
 FROM NashvilleHousing
 
 SELECT PARSENAME(REPLACE(OwnerAddress, ',', '.'), 3)
-	  ,PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2)
-	  ,PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1)
+      ,PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2)
+      ,PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1)
 FROM NashvilleHousing
 
 ALTER TABLE NashvilleHousing
@@ -118,9 +118,9 @@ ORDER BY 2
 
 SELECT SoldAsVacant
 	  ,CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
-		    WHEN SoldAsVacant = 'N' THEN 'No'
-			ELSE SoldAsVacant
-			END
+		WHEN SoldAsVacant = 'N' THEN 'No'
+		ELSE SoldAsVacant
+		END
 FROM NashvilleHousing
 
 UPDATE NashvilleHousing
@@ -138,16 +138,16 @@ SELECT *
 FROM NashvilleHousing
 
 SELECT * 
-	   ,ROW_NUMBER() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
+      ,ROW_NUMBER() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
 FROM NashvilleHousing
 
 
 
 ;WITH cte AS(
-			  SELECT * 
-				    ,ROW_NUMBER() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
-			  FROM NashvilleHousing
-			)
+	      SELECT * 
+		     ,ROW_NUMBER() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
+	      FROM NashvilleHousing
+	    )
 DELETE 
 FROM cte
 WHERE row_num > 1
@@ -155,10 +155,10 @@ WHERE row_num > 1
 
 
 ;WITH cte AS(
-			  SELECT * 
-			  	     ,DENSE_RANK() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
-			  FROM NashvilleHousing
-			)
+	      SELECT * 
+		    ,DENSE_RANK() OVER (PARTITION BY ParcelId, PropertyAddress, SalePrice, SaleDate, LegalReference ORDER BY UniqueID) as row_num
+	      FROM NashvilleHousing
+	    )
 SELECT * FROM cte
 WHERE row_num > 1
 
